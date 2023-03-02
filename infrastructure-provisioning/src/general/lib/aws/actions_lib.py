@@ -456,7 +456,7 @@ def create_instance(definitions, instance_tag, primary_disk_size=12):
             except:
                 print("Error reading user-data file")
         if definitions.instance_class == 'notebook':
-            instances = ec2.create_instances(ImageId="ami-0c64b6afe7613281a", MinCount=1, MaxCount=1,
+            instances = ec2.create_instances(ImageId="ami-0f87758d47f9c346f", MinCount=1, MaxCount=1,
                                              BlockDeviceMappings=[
                                                  {
                                                      "DeviceName": "/dev/sda1",
@@ -479,7 +479,7 @@ def create_instance(definitions, instance_tag, primary_disk_size=12):
                                              IamInstanceProfile={'Name': definitions.iam_profile},
                                              UserData=user_data)
         elif definitions.instance_class == 'dataengine':
-            instances = ec2.create_instances(ImageId="ami-0c64b6afe7613281a", MinCount=1, MaxCount=1,
+            instances = ec2.create_instances(ImageId="ami-0f87758d47f9c346f", MinCount=1, MaxCount=1,
                                              BlockDeviceMappings=[
                                                  {
                                                      "DeviceName": "/dev/sda1",
@@ -500,7 +500,7 @@ def create_instance(definitions, instance_tag, primary_disk_size=12):
             print(definitions)
             print(user_data)
             print(security_groups_ids)
-            instances = ec2.create_instances(ImageId="ami-0c64b6afe7613281a", MinCount=1, MaxCount=1,
+            instances = ec2.create_instances(ImageId="ami-0f87758d47f9c346f", MinCount=1, MaxCount=1,
                                              BlockDeviceMappings=[
                                                  {
                                                      "DeviceName": "/dev/sda1",
@@ -517,7 +517,7 @@ def create_instance(definitions, instance_tag, primary_disk_size=12):
                                              UserData=user_data)
         else:
             get_iam_profile(definitions.iam_profile)
-            instances = ec2.create_instances(ImageId="ami-0c64b6afe7613281a", MinCount=1, MaxCount=1,
+            instances = ec2.create_instances(ImageId="ami-0f87758d47f9c346f", MinCount=1, MaxCount=1,
                                              KeyName=definitions.key_name,
                                              SecurityGroupIds=security_groups_ids,
                                              InstanceType=definitions.instance_type,
