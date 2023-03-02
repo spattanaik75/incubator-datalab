@@ -1573,6 +1573,7 @@ def create_aws_config_files(generate_full_config=False):
                 aws_file.write("[default]\n")
                 aws_file.write("aws_access_key_id = {}\n".format(os.environ['aws_access_key']))
                 aws_file.write("aws_secret_access_key = {}\n".format(os.environ['aws_secret_access_key']))
+                aws_file.write("aws_session_token = {}\n".format(os.environ['aws_session_token']))
 
         subprocess.run("chmod 600 " + aws_user_dir + "/*" + " 2>&1", shell=True, check=True)
         subprocess.run("chmod 550 " + aws_user_dir + " 2>&1", shell=True, check=True)

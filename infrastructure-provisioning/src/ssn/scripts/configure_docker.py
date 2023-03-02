@@ -50,7 +50,7 @@ def modify_conf_file(args):
     variables_list = {}
     host_string = '{}@{}'.format(args.os_user, args.hostname)
     for os_var in os.environ:
-        if "'" not in os.environ[os_var] and os_var != 'aws_access_key' and os_var != 'aws_secret_access_key':
+        if "'" not in os.environ[os_var] and os_var != 'aws_access_key' and os_var != 'aws_secret_access_key' and os_var != 'aws_session_token':
             variables_list[os_var] = os.environ[os_var]
     conn.local('rsync -r -e "ssh -i {}" /project_tree/* {}:{}sources/'.format(args.keyfile, host_string, args.datalab_path))
     conn.local('rsync -e "ssh -i {}" /root/scripts/configure_conf_file.py {}:/tmp/configure_conf_file.py'.format(args.keyfile,

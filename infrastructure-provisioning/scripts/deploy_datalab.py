@@ -53,6 +53,7 @@
         --aws_security_groups_ids sg-xxxxx,sg-xxxx\
         --aws_access_key XXXXXXX\
         --aws_secret_access_key XXXXXXXXXX\
+        --aws_session_token XXXXXXXXXX\
         --aws_region xx-xxxxx-x\
         --aws_account_id xxxxxxxx\
         --aws_billing_bucket billing_bucket\
@@ -192,6 +193,7 @@ def build_parser():
                             deployment script is executed on local machine and uses
                             IAM user permissions to create resources in AWS.''')
     aws_parser.add_argument('--aws_secret_access_key', type=str, help='AWS Secret Access Key')
+    aws_parser.add_argument('--aws_session_token', type=str, help='AWS Session Token')
     aws_parser.add_argument('--aws_ssn_instance_size', type=str, default='t2.large',
                                    help='The SSN instance shape')
     aws_parser.add_argument('--ssn_assume_role_arn', type=str,
@@ -350,8 +352,8 @@ if __name__ == "__main__":
     parser = build_parser()
     args = parser.parse_args()
 
-    if args.conf_cloud_provider == 'aws' and not (args.aws_secret_access_key and args.aws_access_key):
-        sys.exit('Please provide both arguments: --aws_secret_access_key and --aws_access_key')
+    if args.conf_cloud_provider == 'aws' and not (args.aws_session_token and args.aws_secret_access_key and args.aws_access_key):
+        sys.exit('Please provide all arguments: --aws_session_token , --aws_secret_access_key and --aws_access_key')
 
     if not args.workspace_path:
         print("Workspace path isn't set, using current directory: {}".format(os.environ['PWD']))

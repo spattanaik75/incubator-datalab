@@ -38,6 +38,8 @@ parser.add_argument('--service_base_name', required=True, type=str, default='',
                     help='unique name for repository environment')
 parser.add_argument('--aws_access_key', type=str, default='', help='AWS Access Key ID')
 parser.add_argument('--aws_secret_access_key', type=str, default='', help='AWS Secret Access Key')
+parser.add_argument('--aws_session_token', type=str, default='', help='AWS Session Token')
+parser.add_argument('--aws_', type=str, default='', help='AWS Secret Access Key')
 parser.add_argument('--vpc_id', type=str, default='', help='AWS VPC ID')
 parser.add_argument('--vpc_cidr', type=str, default='172.31.0.0/16', help='Cidr of VPC')
 parser.add_argument('--subnet_id', type=str, default='', help='AWS Subnet ID')
@@ -1306,15 +1308,15 @@ def install_squid():
 
 
 if __name__ == "__main__":
-    if args.aws_access_key and args.aws_secret_access_key:
+    if args.aws_access_key and args.aws_secret_access_key and args.aws_session_token:
         ec2_resource = boto3.resource('ec2', region_name=args.region, aws_access_key_id=args.aws_access_key,
-                                      aws_secret_access_key=args.aws_secret_access_key)
+                                      aws_secret_access_key=args.aws_secret_access_key, aws_session_token=args.aws_session_token)
         ec2_client = boto3.client('ec2', region_name=args.region, aws_access_key_id=args.aws_access_key,
-                                  aws_secret_access_key=args.aws_secret_access_key)
+                                  aws_secret_access_key=args.aws_secret_access_key, aws_session_token=args.aws_session_token)
         efs_client = boto3.client('efs', region_name=args.region, aws_access_key_id=args.aws_access_key,
-                                  aws_secret_access_key=args.aws_secret_access_key)
+                                  aws_secret_access_key=args.aws_secret_access_key, aws_session_token=args.aws_session_token)
         route53_client = boto3.client('route53', aws_access_key_id=args.aws_access_key,
-                                      aws_secret_access_key=args.aws_secret_access_key)
+                                      aws_secret_access_key=args.aws_secret_access_key, aws_session_token=args.aws_session_token)
     else:
         ec2_resource = boto3.resource('ec2', region_name=args.region)
         ec2_client = boto3.client('ec2', region_name=args.region)

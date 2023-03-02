@@ -523,6 +523,7 @@ for creating SSN node.
 aws \
 --aws_access_key XXXXXXX \
 --aws_secret_access_key XXXXXXXXXX \
+--aws_session_token XXXXXXX \
 --aws_region xx-xxxxx-x \
 --aws_vpc_id vpc-xxxxx \
 --aws_subnet_id subnet-xxxxx \
@@ -754,7 +755,7 @@ Example of command for terminating DataLab environment:
 <details><summary>In Amazon <i>(click to expand)</i></summary>
 
 ```
-/usr/bin/python3 infrastructure-provisioning/scripts/deploy_datalab.py --conf_service_base_name datalab-test --aws_access_key XXXXXXX --aws_secret_access_key XXXXXXXX --aws_region xx-xxxxx-x --key_path /path/to/key/ --conf_key_name key_name --conf_os_family debian --conf_cloud_provider aws --action terminate
+/usr/bin/python3 infrastructure-provisioning/scripts/deploy_datalab.py --conf_service_base_name datalab-test --aws_access_key XXXXXXX --aws_secret_access_key XXXXXXXX --aws_session_token XXXXXXXX --aws_region xx-xxxxx-x --key_path /path/to/key/ --conf_key_name key_name --conf_os_family debian --conf_cloud_provider aws --action terminate
 ```
 List of parameters for SSN node termination:
 
@@ -2846,7 +2847,7 @@ Using this Docker file, all required scripts and files will be copied to Docker 
 
 -   Docker command for building SSN:
 ```
-docker run -i -v /root/KEYNAME.pem:/root/keys/KEYNAME.pem –v /web_app:/root/web_app -e "conf_os_family=debian" -e "conf_cloud_provider=aws" -e "conf_resource=ssn" -e "aws_ssn_instance_size=t2.medium" -e "aws_region=us-west-2" -e "aws_vpc_id=vpc-111111" -e "aws_subnet_id=subnet-111111" -e "aws_security_groups_ids=sg-11111,sg-22222,sg-33333" -e "conf_key_name=KEYNAME" -e "conf_service_base_name=datalab_test" -e "aws_access_key=Access_Key_ID" -e "aws_secret_access_key=Secret_Access_Key" -e "conf_tag_resource_id=datalab" docker.datalab-ssn --action create ;
+docker run -i -v /root/KEYNAME.pem:/root/keys/KEYNAME.pem –v /web_app:/root/web_app -e "conf_os_family=debian" -e "conf_cloud_provider=aws" -e "conf_resource=ssn" -e "aws_ssn_instance_size=t2.medium" -e "aws_region=us-west-2" -e "aws_vpc_id=vpc-111111" -e "aws_subnet_id=subnet-111111" -e "aws_security_groups_ids=sg-11111,sg-22222,sg-33333" -e "conf_key_name=KEYNAME" -e "conf_service_base_name=datalab_test" -e "aws_access_key=Access_Key_ID" -e "aws_secret_access_key=Secret_Access_Key" -e "aws_session_token=Session_Token" -e "conf_tag_resource_id=datalab" docker.datalab-ssn --action create ;
 ```
 
 -   Docker executes *entrypoint.py* script with action *create*. *Entrypoint.py* will set environment variables, 
@@ -2896,7 +2897,7 @@ docker run -i -v /root/KEYNAME.pem:/root/keys/KEYNAME.pem –v /web_app:/root/we
 SSN:
 
 ```
-docker run -i -v <key_path><key_name>.pem:/root/keys/<key_name>.pem -e "region=<region>" -e "conf_service_base_name=<Infrastructure_Tag>" -e  “conf_resource=ssn" -e "aws_access_key=<Access_Key_ID>" -e "aws_secret_access_key=<Secret_Access_Key>" docker.datalab-ssn --action <action>
+docker run -i -v <key_path><key_name>.pem:/root/keys/<key_name>.pem -e "region=<region>" -e "conf_service_base_name=<Infrastructure_Tag>" -e  “conf_resource=ssn" -e "aws_access_key=<Access_Key_ID>" -e "aws_secret_access_key=<Secret_Access_Key>" -e "aws_session_token=<Session_Token>" docker.datalab-ssn --action <action>
 ```
 All parameters are listed in section "Self-ServiceNode" chapter.
 
