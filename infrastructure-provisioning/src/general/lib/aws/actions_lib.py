@@ -496,6 +496,10 @@ def create_instance(definitions, instance_tag, primary_disk_size=12):
                                              UserData=user_data)
         elif definitions.instance_class == 'ssn':
             get_iam_profile(definitions.iam_profile)
+            print(primary_disk_size)
+            print(definitions)
+            print(user_data)
+            print(security_groups_ids)
             instances = ec2.create_instances(ImageId=definitions.ami_id, MinCount=1, MaxCount=1,
                                              BlockDeviceMappings=[
                                                  {
