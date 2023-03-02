@@ -50,40 +50,41 @@ if __name__ == "__main__":
         service_name = 'com.amazonaws.{}.s3'.format(args.region)
         logging.info('Vars are: {}, {}, {}'.format(args.vpc_id, service_name, json.dumps(tag)))
         try:
-            route_table = get_route_tables(args.vpc_id, json.dumps(tag))
-            if not route_table:
-                route_table.append(ec2.create_route_table(
-                    VpcId = args.vpc_id
-                )['RouteTable']['RouteTableId'])
-                while route_table != '':
-                    waiter
-                    if route_table == '':
-                        waiter
-                    else:
-                        break
-                logging.info('Created Route-Table with ID: {}'.format(route_table))
-                create_tag(route_table, json.dumps(tag))
-                create_tag(route_table, json.dumps({"Key": "Name", "Value": "{}-rt".format(args.infra_tag_value)}))
-            endpoints = get_vpc_endpoints(args.vpc_id)
-            if not endpoints:
-                logging.info('Creating EP')
-                endpoint = ec2.create_vpc_endpoint(
-                    VpcId=args.vpc_id,
-                    ServiceName=service_name,
-                    RouteTableIds=route_table
-                )
-                endpoint = endpoint['VpcEndpoint']['VpcEndpointId']
-            else:
-                logging.info('For current VPC {} endpoint already exists. ID: {}. Route table list will be modified'
-                             .format(args.vpc_id, endpoints[0].get('VpcEndpointId')))
-                endpoint_id = endpoints[0].get('VpcEndpointId')
-                result = ec2.modify_vpc_endpoint(
-                    VpcEndpointId=endpoint_id,
-                    AddRouteTableIds=route_table
-                )
-                if result:
-                    endpoint = endpoint_id
-            logging.info("ENDPOINT: {}".format(endpoint))
+            # route_table = get_route_tables(args.vpc_id, json.dumps(tag))
+            # if not route_table:
+            #     route_table.append(ec2.create_route_table(
+            #         VpcId = args.vpc_id
+            #     )['RouteTable']['RouteTableId'])
+            #     while route_table != '':
+            #         waiter
+            #         if route_table == '':
+            #             waiter
+            #         else:
+            #             break
+            #     logging.info('Created Route-Table with ID: {}'.format(route_table))
+            #     create_tag(route_table, json.dumps(tag))
+            #     create_tag(route_table, json.dumps({"Key": "Name", "Value": "{}-rt".format(args.infra_tag_value)}))
+            # endpoints = get_vpc_endpoints(args.vpc_id)
+            # if not endpoints:
+            #     logging.info('Creating EP')
+            #     endpoint = ec2.create_vpc_endpoint(
+            #         VpcId=args.vpc_id,
+            #         ServiceName=service_name,
+            #         RouteTableIds=route_table
+            #     )
+            #     endpoint = endpoint['VpcEndpoint']['VpcEndpointId']
+            # else:
+            #     logging.info('For current VPC {} endpoint already exists. ID: {}. Route table list will be modified'
+            #                  .format(args.vpc_id, endpoints[0].get('VpcEndpointId')))
+            #     endpoint_id = endpoints[0].get('VpcEndpointId')
+            #     result = ec2.modify_vpc_endpoint(
+            #         VpcEndpointId=endpoint_id,
+            #         AddRouteTableIds=route_table
+            #     )
+            #     if result:
+            #         endpoint = endpoint_id
+            # logging.info("ENDPOINT: {}".format(endpoint))
+            pass
         except botocore.exceptions.ClientError as err:
             logging.error(err.response['Error']['Message'])
             logging.info('Failed to create endpoint. Removing RT')
