@@ -348,7 +348,7 @@ if __name__ == "__main__":
             params = "--elastic_ip {} --ssn_id {} --infra_tag_name {} --infra_tag_value {}".format(
                 ssn_conf['elastic_ip'], ssn_conf['ssn_id'], ssn_conf['tag_name'], ssn_conf['elastic_ip_name'])
             try:
-                # subprocess.run("~/scripts/{}.py {}".format('ssn_associate_elastic_ip', params), shell=True, check=True)
+                subprocess.run("~/scripts/{}.py {}".format('ssn_associate_elastic_ip', params), shell=True, check=True)
             except:
                 traceback.print_exc()
                 raise Exception
