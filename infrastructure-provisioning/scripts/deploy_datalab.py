@@ -194,7 +194,7 @@ def build_parser():
                             IAM user permissions to create resources in AWS.''')
     aws_parser.add_argument('--aws_secret_access_key', type=str, help='AWS Secret Access Key')
     aws_parser.add_argument('--aws_session_token', type=str, help='AWS Session Token')
-    aws_parser.add_argument('--aws_ssn_instance_size', type=str, default='t2.large',
+    aws_parser.add_argument('--aws_ssn_instance_size', type=str, default='t3.large',
                                    help='The SSN instance shape')
     aws_parser.add_argument('--ssn_assume_role_arn', type=str,
                             help='Role ARN for creating Route53 record in different AWS account')
